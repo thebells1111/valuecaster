@@ -1,6 +1,7 @@
 <script>
 	export let podcast;
 	export let index;
+	export let handleSearch;
 </script>
 
 <div class="container">
@@ -18,12 +19,14 @@
 			</a>
 			<p>by {podcast.author}</p>
 			<div class="categories">
-				<h4>Categories:</h4>
-				<p>
-					{Object.entries(podcast.categories).map(([key, value]) => {
-						return value;
-					})}
-				</p>
+				<div>
+					{#each Object.entries(podcast.categories)
+						.map(([key, value]) => value)
+						.concat(podcast.provider)
+						.filter((v) => v) as cat}
+						<span class="tag" on:click={handleSearch.bind(null, cat)}>{cat}</span>
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -85,5 +88,14 @@
 		position: absolute;
 		bottom: 0;
 		right: 8px;
+	}
+
+	.tag {
+		padding: 2px 8px;
+		border-radius: 20px;
+		background-color: rgb(0, 117, 212);
+		color: rgb(245, 245, 245);
+		margin: 0 2px;
+		cursor: pointer;
 	}
 </style>

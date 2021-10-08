@@ -1,29 +1,8 @@
 <script>
 	export let filteredPodcastList;
 	export let scrollToIndex;
-	export let storedPodcastList;
-
-	function searchCats(cats, term) {
-		const catMap = Object.entries(cats).map(([key, value]) => value);
-		for (let c of catMap) {
-			if (c.toLowerCase().includes(term)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	function handleSearch(e) {
-		console.log(storedPodcastList);
-		let s = e.target.value;
-		filteredPodcastList = storedPodcastList.filter(
-			(v) =>
-				v.title.toLowerCase().includes(s.toLowerCase()) ||
-				v.author.toLowerCase().includes(s.toLowerCase()) ||
-				searchCats(v.categories, s.toLowerCase()) ||
-				v.description.toLowerCase().includes(s.toLowerCase())
-		);
-	}
+	export let searchBar;
+	export let handleSearch;
 </script>
 
 <div class="container">
@@ -36,7 +15,12 @@
 		/>
 		of {filteredPodcastList?.length} Value Enabled Podcasts
 	</div>
-	<input type="search" on:input={handleSearch} placeholder="filter podcasts" />
+	<input
+		bind:this={searchBar}
+		type="search"
+		on:input={(e) => handleSearch(e.target.value)}
+		placeholder="filter podcasts"
+	/>
 </div>
 
 <style>
