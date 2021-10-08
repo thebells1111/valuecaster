@@ -25,7 +25,7 @@
 		let feeds = data.feeds.map((feed) => {
 			for (const d of feed.value.destinations) {
 				if (d.address.substr(0, 6) === '03c457') {
-					feed.provider = 'Satoshi Streams';
+					feed.provider = 'Satoshis Stream';
 				}
 				return feed;
 			}
