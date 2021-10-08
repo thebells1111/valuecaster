@@ -1,5 +1,5 @@
 <script>
-	import EpisodeList from '$lib/Shared/3-MiddlePane/EpisodeList/EpisodeList.svelte';
+	import EpisodeList from '$lib/PodcastList/PodcastList.svelte';
 
 	import '../app.css';
 </script>

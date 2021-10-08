@@ -74,10 +74,11 @@
 		background: #fff;
 		border: 1px solid #d6d6d6;
 		border-radius: 6px;
-		margin: 10px 20px;
+		margin: 10px 12px 10px 20px;
 		padding: 5px;
 		height: 320px;
 		position: relative;
+		width: calc(100% - 40px);
 	}
 
 	.index {

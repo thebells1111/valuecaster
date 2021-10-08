@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import VirtualList from 'svelte-tiny-virtual-list';
-	import EpisodeListItem from './EpisodeListItem.svelte';
-	import EpisodeListLoadingItems from './EpisodeListLoadingItems.svelte';
+	import Header from './Header.svelte';
+	import EpisodeListItem from './PodcastListItem.svelte';
 
 	let listHeight = 500;
 	let headerHeight = 80;
@@ -11,9 +11,10 @@
 	let virtualList;
 	let scrollToIndex;
 	$: if (sectionHeight && headerHeight) {
-		listHeight = sectionHeight - 45;
+		listHeight = sectionHeight - 60;
 	}
 	let filteredPodcastList = [];
+	let storedPodcastList = [];
 
 	onMount(async () => {
 		const res = await fetch(`/api/queryindex?q=podcasts/bytag?podcast-value&pretty`, {
@@ -21,21 +22,14 @@
 		});
 		let data = await res.json();
 		let feeds = data.feeds;
+		storedPodcastList = feeds;
 		filteredPodcastList = feeds;
 		console.log(feeds);
 	});
 </script>
 
 <section bind:clientHeight={sectionHeight} bind:clientWidth={sectionWidth}>
-	<div class="index">
-		<input
-			type="number"
-			placeholder="Scroll to index..."
-			class="input"
-			bind:value={scrollToIndex}
-		/>
-		of {filteredPodcastList?.length} Value Enabled Podcasts
-	</div>
+	<Header bind:filteredPodcastList bind:scrollToIndex {storedPodcastList} />
 
 	{#if filteredPodcastList && filteredPodcastList?.length}
 		<div class="list-height">
@@ -53,10 +47,6 @@
 				</div>
 			</VirtualList>
 		</div>
-	{:else}
-		{#each [1, 2, 3, 4, 5] as podcast}
-			<EpisodeListLoadingItems />
-		{/each}
 	{/if}
 </section>
 
@@ -73,7 +63,7 @@
 	}
 
 	.list-height {
-		height: calc(100% - 45px);
+		flex: 1;
 		overflow: hidden;
 	}
 </style>
