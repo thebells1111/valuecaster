@@ -12,7 +12,7 @@
 	let virtualList;
 	let scrollToIndex;
 	$: if (sectionHeight && headerHeight) {
-		listHeight = sectionHeight - 60;
+		listHeight = sectionHeight - (sectionWidth > 649 ? 60 : 100);
 	}
 	let filteredPodcastList = [];
 	let storedPodcastList = [];
@@ -72,11 +72,16 @@
 				width="100%"
 				{scrollToIndex}
 				itemCount={filteredPodcastList.length}
-				itemSize={330}
+				itemSize={sectionWidth > 649 ? 330 : 480}
 				overscanCount={5}
 			>
 				<div slot="item" let:index let:style {style} class="row">
-					<EpisodeListItem podcast={filteredPodcastList?.[index]} {index} {handleSearch} />
+					<EpisodeListItem
+						podcast={filteredPodcastList?.[index]}
+						{index}
+						{handleSearch}
+						{sectionWidth}
+					/>
 				</div>
 			</VirtualList>
 		</div>
@@ -98,5 +103,16 @@
 	.list-height {
 		flex: 1;
 		overflow: hidden;
+	}
+	@media (max-width: 649px) {
+		:global(.virtual-list-wrapper) {
+			overflow-x: hidden !important;
+			-ms-overflow-style: none; /* IE and Edge */
+			scrollbar-width: none; /* Firefox */
+		}
+
+		:global(.virtual-list-wrapper::-webkit-scrollbar) {
+			display: none;
+		}
 	}
 </style>

@@ -9,7 +9,9 @@
 	<div class="index">
 		<input
 			type="number"
-			placeholder="Scroll to index..."
+			min="0"
+			max={filteredPodcastList?.length}
+			placeholder="Item #"
 			class="input"
 			bind:value={scrollToIndex}
 		/>
@@ -33,7 +35,35 @@
 		width: 100%;
 	}
 
+	input {
+		border-radius: 20px;
+	}
+
+	input[type='number'] {
+		width: 100px;
+		text-align: center;
+		padding-left: 16px;
+	}
+
 	input[type='search'] {
 		width: 50%;
+		padding-left: 16px;
+	}
+
+	@media (max-width: 649px) {
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		input[type='number'] {
+			width: 75px;
+			text-align: center;
+		}
+
+		input[type='search'] {
+			width: 100%;
+		}
 	}
 </style>
