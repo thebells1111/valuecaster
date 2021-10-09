@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="row">
 		<div class="artwork">
-			<a href={'https://curiocaster.com/#fastfollow-podcast:' + podcast.guid}>
+			<a href={'https://curiocaster.com/#fastfollow-podcast:' + podcast.podcastGuid}>
 				<div class="image-container">
 					<img draggable="false" src={podcast.artwork || podcast.image} />
 				</div>
